@@ -10,19 +10,57 @@
     <link rel="icon" type="image/png" href="./assets/img/purpul-stars.png">
     <link rel="stylesheet" href="./assets/css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('./assets/font/tfc-font.ttf');
+        }
+
+        #blur-interface {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+            transition: opacity 1s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #blur-interface p {
+            font-family: 'MyCustomFont', sans-serif;
+        }
+
+        #content {
+            opacity: 0;
+            transition: opacity 1s ease;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 style="color:rgb(83, 83, 207);">mirr . 42</h1>
-    <h2 style="color:rgb(83, 83, 207);">a deep dreamy atmosphere...</h2>
-    <div class="box flex">
-        <img src="./assets/img/github.png" class="links" width="56" height="56" onclick="openGitHub()">
-        <img src="./assets/img/discord.png" class="links" width="56" height="56" onclick="openDiscord()">
+    <div id="blur-interface" onclick="startMusic()">
+        <h1>mirr-a . yo yo yo</h1>
     </div>
-    <p class="footer-text"> made with <img src="./assets/img/icons8-gun-16.png" class="emoji" id="heart" alt="heart" height="20" width="20"
-            onclick="secretCounter()"> by <a class="footer-name" target="_blank" rel="noopener noreferrer"
-            href="https://discordapp.com/users/713756363674877983/">mirr</a></p>
-    <div id="secret"></div>
+    <!-- Rest of your content -->
+    <div id="content">
+        <h1 style="color:rgb(83, 83, 207);">mirr . 42</h1>
+        <h2 style="color:rgb(83, 83, 207);">a deep dreamy atmosphere...</h2>
+        <div class="box flex">
+            <img src="./assets/img/github.png" class="links" width="56" height="56" onclick="openGitHub()">
+            <img src="./assets/img/discord.png" class="links" width="56" height="56" onclick="openDiscord()">
+        </div>
+        <p class="footer-text"> made with <img src="./assets/img/icons8-gun-16.png" class="emoji" id="heart" alt="heart"
+                height="20" width="20" onclick="secretCounter()"> by <a class="footer-name" target="_blank"
+                rel="noopener noreferrer" href="https://discordapp.com/users/713756363674877983/">mirr</a></p>
+        <div id="secret"></div>
+    </div>
 
     <!-- JavaScript for opening links -->
     <script>
@@ -36,6 +74,8 @@
             // Include your secret counter logic here if needed
         }
     </script>
+
+    <!--new section-->
     <script>
         const titleText = "@mirr"; // Text you want to animate in the title
         let index = 0;
@@ -61,6 +101,34 @@
         animateTitle(); // Start the animation
     </script>
 
+    <audio id="bgAudio" loop>
+        <source src="./assets/music/tame Impala Borderline.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        function startMusic() {
+            var overlay = document.getElementById("blur-interface");
+            var content = document.getElementById("content");
+            var audio = document.getElementById("bgAudio");
+
+            // Fade out the overlay and reveal the content
+            overlay.style.opacity = "0";
+            content.style.opacity = "1";
+
+            // Start playing the audio
+            audio.play().then(() => {
+                console.log('Audio playback started successfully.');
+            }).catch((error) => {
+                console.error('Autoplay was prevented:', error);
+            });
+
+            // Remove the overlay after a delay (optional)
+            setTimeout(function () {
+                overlay.style.display = "none";
+            }, 1000); // Remove overlay after 1 second (adjust as needed)
+        }
+    </script>
 </body>
 
 </html>
